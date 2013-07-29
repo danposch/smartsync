@@ -11,9 +11,17 @@ CONFIG += warn_on
 DESTDIR = bin
 OBJECTS_DIR = build
 
-HEADERS +=
+INCLUDEPATH += /usr/include/
 
-SOURCES += main.cpp
+HEADERS += \
+    smartsyncdaemon.h
 
-LIBS += -lccn -L./libdash/libdash/lib/build/bin/libdash.so \
+SOURCES += main.cpp \
+    smartsyncdaemon.cpp
+
+LIBS += -L/usr/lib \
+        -lccn \
+        -lcrypto \
+        -lboost_thread \
+        -L./libdash/libdash/lib/build/bin/libdash.so \
 
