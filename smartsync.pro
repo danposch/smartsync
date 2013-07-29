@@ -11,17 +11,22 @@ CONFIG += warn_on
 DESTDIR = bin
 OBJECTS_DIR = build
 
-INCLUDEPATH += /usr/include/
+INCLUDEPATH += /usr/include/ \
+               ./libdash/libdash/libdash/include
 
 HEADERS += \
-    smartsyncdaemon.h
+    smartsyncdaemon.h \
+    simpledownloader.h
 
 SOURCES += main.cpp \
-    smartsyncdaemon.cpp
+    smartsyncdaemon.cpp \
+    simpledownloader.cpp
 
 LIBS += -L/usr/lib \
         -lccn \
         -lcrypto \
         -lboost_thread \
-        -L./libdash/libdash/lib/build/bin/libdash.so \
+        -lboost_system \
+        -lboost_filesystem \
+        -L./libdash/libdash/build/bin/ -ldash
 

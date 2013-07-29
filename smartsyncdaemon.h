@@ -12,9 +12,14 @@ extern "C" {
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include <boost/container/list.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
+#include <boost/thread.hpp>
+
+#include "simpledownloader.h"
 
 namespace SmartSync
 {
@@ -24,10 +29,11 @@ namespace SmartSync
             SmartSyncDaemon();
             bool start();
 
-        private:
+        protected:
 
             bool init();
             void simpleSearch(const std::string& mpd_name);
+            std::string storeFile(ccn_charbuf *buf, std::string file_name);
 
             struct ccn *connection;
             struct ccn_fetch *cf;

@@ -110,8 +110,11 @@ void SmartSyncDaemon::simpleSearch(const std::string& mpd_name )
 
                 if(ret == CCN_FETCH_READ_END ||ret == CCN_FETCH_READ_TIMEOUT)
                 {
-                    //Todo launch thread...
                     //fprintf(stderr, "Result = %s\n", resultbuf->buf);
+                    std::string mpd_path = storeFile(resultbuf, mpd_name);
+                    SimpleDownloader downloader(mpd_path);
+                    boost::thread t(downloader);
+
                     break;
                 }
             }
@@ -123,4 +126,24 @@ void SmartSyncDaemon::simpleSearch(const std::string& mpd_name )
     ccn_charbuf_destroy(&resultbuf);
     ccn_charbuf_destroy(&templ);
     ccn_charbuf_destroy(&name);
+}
+
+std::string SmartSyncDaemon::storeFile(ccn_charbuf *buf, std::string file_name)
+{
+    std::string path;
+    path.append(getenv("HOME"));
+    path.append("/.smartsync/");
+
+    file_name = file_name.substr(file_name.rfind('/')+1);
+
+    if(!boost::filesystem::exists(path))
+            boost::filesystem::create_directory(path);
+
+    path.append(file_name);
+
+    std::ofstream out (file_name.c_str(),std::ofstream::binary);
+    out.write((char*)buf->buf, buf->length);
+    out.close();
+
+    return path;
 }
