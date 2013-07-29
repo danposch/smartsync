@@ -13,6 +13,7 @@ OBJECTS_DIR = build
 
 HEADERS +=
 
-
 SOURCES += main.cpp
+
+LIBS += -lccn -L./libdash/libdash/lib/build/bin/libdash.so \
 
