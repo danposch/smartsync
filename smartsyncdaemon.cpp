@@ -115,11 +115,12 @@ void SmartSyncDaemon::simpleSearch(const std::string& mpd_name )
                     SimpleDownloader downloader(mpd_path);
                     boost::thread t(downloader);
 
+                    ccn_fetch_close(fs);
                     break;
                 }
             }
-            else
-                fprintf(stderr, "ccn_fetch_poll <= 0\n");
+            //else
+                //fprintf(stderr, "ccn_fetch_poll <= 0\n");
         }
     }
 
@@ -140,10 +141,10 @@ std::string SmartSyncDaemon::storeFile(ccn_charbuf *buf, std::string file_name)
             boost::filesystem::create_directory(path);
 
     path.append(file_name);
-
-    std::ofstream out (file_name.c_str(),std::ofstream::binary);
+    boost::iostreams::stream_buffer<boost::iostreams::file_sink> file(path.c_str());
+    std::ostream out(&file);
     out.write((char*)buf->buf, buf->length);
-    out.close();
+    out.flush();
 
     return path;
 }

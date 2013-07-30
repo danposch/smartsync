@@ -16,11 +16,13 @@ INCLUDEPATH += /usr/include/ \
 
 HEADERS += \
     smartsyncdaemon.h \
-    simpledownloader.h
+    simpledownloader.h \
+    ccnxconnection.h
 
 SOURCES += main.cpp \
     smartsyncdaemon.cpp \
-    simpledownloader.cpp
+    simpledownloader.cpp \
+    ccnxconnection.cpp
 
 LIBS += -L/usr/lib \
         -lccn \

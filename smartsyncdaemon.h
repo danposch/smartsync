@@ -18,6 +18,9 @@ extern "C" {
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
 #include <boost/thread.hpp>
+#include <boost/iostreams/device/file.hpp>
+#include <boost/iostreams/stream.hpp>
+
 
 #include "simpledownloader.h"
 

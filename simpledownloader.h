@@ -11,9 +11,12 @@ extern "C" {
 }
 
 #include "libdash.h"
+#include <boost/shared_ptr.hpp>
 
 #include <fstream>
 #include <string>
+
+#include "ccnxconnection.h"
 
 namespace SmartSync
 {
@@ -25,7 +28,7 @@ namespace SmartSync
         void operator()();
 
         protected:
-            std::string mpd_uri;
+            dash::mpd::IMPD* mpd;
             dash::IDASHManager* manager;
 
     };
