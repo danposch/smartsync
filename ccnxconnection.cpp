@@ -47,9 +47,6 @@ bool CCNxConnection::init()
 
 ccn_charbuf* CCNxConnection::download(std::string file_uri)
 {
-
-    fprintf(stderr, "CCN URI: %s\n", file_uri.c_str());
-
     struct ccn_charbuf *name = ccn_charbuf_create();
     struct ccn_charbuf *resultbuf = ccn_charbuf_create();
 
@@ -68,7 +65,6 @@ ccn_charbuf* CCNxConnection::download(std::string file_uri)
         if(ccn_fetch_poll(cf) > 0)
         {
             ret = ccn_fetch_read(fs, buf, BUFFER_SIZE);
-            fprintf(stderr, "ret = %d\n", ret);
             ccn_charbuf_append(resultbuf, buf, ret);
 
             if(ret == CCN_FETCH_READ_END ||ret == CCN_FETCH_READ_TIMEOUT)
