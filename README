@@ -1,6 +1,6 @@
 SmartSync Install Guide (testet on Ubuntu 12.04 64bit)
 
-# Requirements:
+# Dependencies:
     * qmake
     * CCNx 0.8.0rc1
     * Boost C++
