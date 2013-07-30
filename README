@@ -4,7 +4,7 @@ SmartSync Install Guide (testet on Ubuntu 12.04 64bit)
     * qmake
     * CCNx 0.8.0rc1
     * Boost++
-	* OpenSSL
+    * OpenSSL
 
 # Building:
 	* git clone https://github.com/danposch/smartsync.git
