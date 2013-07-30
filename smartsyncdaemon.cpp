@@ -40,6 +40,7 @@ bool SmartSyncDaemon::start()
     while(true)
     {
         //check here for mpds...
+        //very simple approach for demo purpose
         simpleSearch("ccnx:/itec1/dash/bunny/bunny_full.mpd");
         sleep(3);
     }
@@ -53,7 +54,7 @@ void SmartSyncDaemon::simpleSearch(const std::string& mpd_name )
     {
         if ( cur.compare(mpd_name) == 0)
         {
-            // we already processed this mpd...
+            // we have already processed this mpd...
             return;
         }
     }

@@ -30,7 +30,6 @@ namespace SmartSync
         protected:
             dash::mpd::IMPD* mpd;
             dash::IDASHManager* manager;
-
     };
 
 }

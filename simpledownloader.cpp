@@ -14,7 +14,7 @@ SimpleDownloader::~SimpleDownloader()
 
 void SimpleDownloader::operator()()
 {
-    // here we sould start downloading all segments
+    // here we start downloading all segments
 
     CCNxConnection con;
     std::string base_url = mpd->GetBaseUrls().at(0)->GetUrl();

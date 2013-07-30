@@ -1,0 +1,15 @@
+SmartSync Install Guide (testet on Ubuntu 12.04 64bit)
+
+# Requirements:
+    * qmake
+    * CCNx 0.8.0rc1
+    * Boost++
+	* OpenSSL
+
+# Building:
+	* git clone https://github.com/danposch/smartsync.git
+	* cd smartsync\
+	* ./bootstrap.sh
+	* sudo cp ./libdash/libdash/build/bin/libdash.so  /usr/local/lib/
+	* qmake
+	* make

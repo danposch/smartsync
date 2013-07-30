@@ -28,7 +28,6 @@ namespace SmartSync
         bool init();
         struct ccn *connection;
         struct ccn_fetch *cf;
-
     };
 }
 #endif // CCNXCONNECTION_H

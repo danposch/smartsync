@@ -19,7 +19,6 @@ CCNxConnection::~CCNxConnection()
         ccn_disconnect(connection);
         ccn_destroy(&connection);
     }
-
 }
 
 bool CCNxConnection::init()
