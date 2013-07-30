@@ -7,9 +7,10 @@ SmartSync Install Guide (testet on Ubuntu 12.04 64bit)
     * OpenSSL
 
 # Building:
-	* git clone https://github.com/danposch/smartsync.git
-	* cd smartsync\
-	* ./bootstrap.sh
-	* sudo cp ./libdash/libdash/build/bin/libdash.so  /usr/local/lib/
-	* qmake
-	* make
+    * git clone https://github.com/danposch/smartsync.git
+    * cd smartsync\
+    * ./bootstrap.sh
+    * sudo cp ./libdash/libdash/build/bin/libdash.so  /usr/local/lib/
+    * qmake
+    * make
+    * binary appears bin/
