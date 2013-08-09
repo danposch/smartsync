@@ -56,8 +56,17 @@ ccn_charbuf* CCNxConnection::download(std::string file_uri)
     }
 
     struct ccn_fetch_stream *fs = ccn_fetch_open(cf, name, file_uri.c_str(), NULL, 16, (CCN_V_HIGH | CCN_V_NESTOK), 1);
+
+    if(fs == NULL)
+    {
+        fprintf(stderr, "Warning fs == NULL \n");
+        return NULL;
+    }
+
     char buf[BUFFER_SIZE];
     int ret = 0;
+
+    int timeout = 10000; // is 10.000 * 100 = 1.000.000 usec = 1 sec
 
     while(true)
     {
@@ -66,18 +75,33 @@ ccn_charbuf* CCNxConnection::download(std::string file_uri)
             ret = ccn_fetch_read(fs, buf, BUFFER_SIZE);
             ccn_charbuf_append(resultbuf, buf, ret);
 
-            if(ret == CCN_FETCH_READ_END ||ret == CCN_FETCH_READ_TIMEOUT)
+            if(ret == CCN_FETCH_READ_END)
             {
                 ccn_fetch_close(fs);
                 break;
             }
+            else if (ret == CCN_FETCH_READ_TIMEOUT)
+            {
+                fprintf(stderr, "Reachead timeout\n");
+                ccn_reset_timeout(fs);
+            }
         }
-        /*else
         {
-            fprintf(stderr, "ccn_fetch_poll <= 0\n");
-            sleep(1);
-        }*/
+            //fprintf(stderr, "ccn_fetch_poll <= 0\n");
+            usleep(100);
+            timeout--;
+
+            if(timeout < 0)
+            {
+                //fprintf(stderr, "Warning ccn_fetch_poll timeout \n");
+                ccn_fetch_close(fs);
+                ccn_charbuf_destroy(&resultbuf);
+                ccn_charbuf_destroy(&name);
+                return NULL;
+            }
+        }
     }
 
+    ccn_charbuf_destroy(&name);
     return resultbuf;
 }

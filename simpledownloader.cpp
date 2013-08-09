@@ -33,10 +33,10 @@ void SimpleDownloader::operator()()
 
         for(unsigned int k=0; k<slist.size(); k++)
         {
-            if(con.download(base_url + slist.at(k)->GetMediaURI()) != NULL)
-                fprintf(stderr, "Downloaded %s\n", (base_url + slist.at(k)->GetMediaURI()).c_str());
-            else
+            while(con.download(base_url + slist.at(k)->GetMediaURI()) == NULL)
                 fprintf(stderr, "Error Downloading %s\n", (base_url + slist.at(k)->GetMediaURI()).c_str());
+
+            fprintf(stderr, "Downloaded %s\n", (base_url + slist.at(k)->GetMediaURI()).c_str());
         }
     }
 }

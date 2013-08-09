@@ -41,7 +41,7 @@ bool SmartSyncDaemon::start()
     {
         //check here for mpds...
         //very simple approach for demo purpose
-        simpleSearch("ccnx:/itec1/dash/bunny/bunny_full.mpd");
+        simpleSearch("ccnx:/itec1/dash/bunny/bunny_480.mpd");
         sleep(3);
     }
 
