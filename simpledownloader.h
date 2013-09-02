@@ -32,8 +32,8 @@ namespace SmartSync
         protected:
             dash::mpd::IMPD* mpd;
             dash::IDASHManager* manager;
+            unsigned int lastSegmentBytes;
             struct timeval start;
-            unsigned long bytesDownloaded;
             unsigned int bandwidth_limit;
 
             unsigned int getDownloadRate();

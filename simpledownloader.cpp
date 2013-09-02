@@ -6,9 +6,8 @@ SimpleDownloader::SimpleDownloader(std::string mpd_uri, unsigned bandwidth_limit
 {
     manager = CreateDashManager();
     mpd = manager->Open((char*)mpd_uri.c_str());
-    bytesDownloaded = 0;
+    lastSegmentBytes = 0;
     this->bandwidth_limit = bandwidth_limit;
-    gettimeofday(&start, NULL);
 }
 
 SimpleDownloader::~SimpleDownloader()
@@ -36,6 +35,8 @@ void SimpleDownloader::operator()()
         std::vector<dash::mpd::ISegmentURL *> slist = periods.at(i)->GetAdaptationSets().at(0)->GetRepresentation().at(0)->GetSegmentList()->GetSegmentURLs();
         for(unsigned int k=0; k<slist.size(); k++)
         {
+             gettimeofday(&start, NULL); //restart measurement
+
             while(getDownloadRate() > bandwidth_limit)
                 usleep(5000); //postpone download for 5ms
 
@@ -45,7 +46,7 @@ void SimpleDownloader::operator()()
                 fprintf(stderr, "Error Downloading %s\n", (base_url + slist.at(k)->GetMediaURI()).c_str());
             }
 
-            bytesDownloaded += seg->length;
+            lastSegmentBytes = seg->length;
             fprintf(stderr, "Downloaded %s\n", (base_url + slist.at(k)->GetMediaURI()).c_str());
         }
     }
@@ -61,7 +62,7 @@ unsigned int SimpleDownloader::getDownloadRate()
     if(elapsed_ms < 1 )
         elapsed_ms = 1;
 
-    unsigned int rate_kbits = ((bytesDownloaded*8)/(elapsed_ms));
+    unsigned int rate_kbits = ((lastSegmentBytes*8)/(elapsed_ms));
 
     return rate_kbits;
 }
