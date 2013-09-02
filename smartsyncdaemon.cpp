@@ -4,8 +4,9 @@ using namespace SmartSync;
 
 #define BUFFER_SIZE 4096
 
-SmartSyncDaemon::SmartSyncDaemon()
+SmartSyncDaemon::SmartSyncDaemon(unsigned int bandwidth_limit)
 {
+    this->bandwidth_limit = bandwidth_limit;
 }
 
 bool SmartSyncDaemon::init()
@@ -113,7 +114,7 @@ void SmartSyncDaemon::simpleSearch(const std::string& mpd_name )
                 {
                     //fprintf(stderr, "Result = %s\n", resultbuf->buf);
                     std::string mpd_path = storeFile(resultbuf, mpd_name);
-                    SimpleDownloader downloader(mpd_path);
+                    SimpleDownloader downloader(mpd_path, bandwidth_limit);
                     boost::thread t(downloader);
 
                     ccn_fetch_close(fs);

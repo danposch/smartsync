@@ -15,6 +15,8 @@ extern "C" {
 
 #include <fstream>
 #include <string>
+#include <sys/time.h>
+#include <unistd.h>
 
 #include "ccnxconnection.h"
 
@@ -23,13 +25,19 @@ namespace SmartSync
     class SimpleDownloader
     {
        public:
-        SimpleDownloader(std::string mpd_uri);
+        SimpleDownloader(std::string mpd_uri, unsigned int bandwidth_limit);
         ~SimpleDownloader();
         void operator()();
 
         protected:
             dash::mpd::IMPD* mpd;
             dash::IDASHManager* manager;
+            struct timeval start;
+            unsigned long bytesDownloaded;
+            unsigned int bandwidth_limit;
+
+            unsigned int getDownloadRate();
+
     };
 
 }

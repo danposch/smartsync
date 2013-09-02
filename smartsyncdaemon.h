@@ -29,7 +29,7 @@ namespace SmartSync
     class SmartSyncDaemon
     {
         public:
-            SmartSyncDaemon();
+            SmartSyncDaemon(unsigned int bandwidth_limit);
             bool start();
 
         protected:
@@ -41,6 +41,7 @@ namespace SmartSync
             struct ccn *connection;
             struct ccn_fetch *cf;
             boost::container::list<std::string> names;
+            unsigned int bandwidth_limit;
     };
 }
 #endif // SMARTSYNCDAEMON_H
